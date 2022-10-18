@@ -2,14 +2,14 @@
 # FIXME::REQUIRED: set an MLflow experiment name to track pipeline executions and artifacts.
 #
 experiment:
-  name: ""
+  name: "test_name"
   tracking_uri: "sqlite:///metadata/mlflow/mlruns.db"
   artifact_location: "./metadata/mlflow/mlartifacts"
 #
 # FIXME::OPTIONAL: Set the registry server URI. This property is especially useful if you have a
 #                  registry server that’s different from the tracking server.
-# model_registry:
-#   uri: "sqlite:///metadata/mlflow/registry.db"
+model_registry:
+  uri: "sqlite:///metadata/mlflow/registry.db"
 #
 # FIXME::REQUIRED: Specify the training and evaluation data location.
 INGEST_DATA_LOCATION: ""
