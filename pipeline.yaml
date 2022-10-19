@@ -1,7 +1,7 @@
 template: "regression/v1"
 data:
-  location: { { INGEST_DATA_LOCATION } }
-  format: { { INGEST_DATA_FORMAT|default('parquet') } }
+  location: {{INGEST_DATA_LOCATION}}
+  format: {{INGEST_DATA_FORMAT|default('parquet')}}
 target_col: "T"
 steps:
   split:
@@ -20,10 +20,10 @@ steps:
     model_name: "test"
     allow_non_validated_model: false
   predict:
-    output_location: { { SCORED_OUTPUT_DATA_LOCATION } }
-    output_format: { { SCORED_OUTPUT_DATA_FORMAT|default('parquet') } }
+    output_location: {{SCORED_OUTPUT_DATA_LOCATION}}
+    output_format: {{SCORED_OUTPUT_DATA_FORMAT|default('parquet')}}
 metrics:
   primary: "mean_absolute_error"
 data_scoring:
-  location: { { INGEST_SCORING_DATA_LOCATION } }
-  format: { { INGEST_SCORING_DATA_FORMAT|default('parquet') } }
+  location: {{INGEST_SCORING_DATA_LOCATION}}
+  format: {{INGEST_SCORING_DATA_FORMAT|default('parquet')}}
