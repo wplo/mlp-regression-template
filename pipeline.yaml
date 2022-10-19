@@ -21,13 +21,16 @@ data:
   # Dataset locations on the local filesystem are supported, as well as HTTP(S) URLs and
   # any other remote locations resolvable by MLflow, such as those listed in
   # https://mlflow.org/docs/latest/tracking.html#artifact-stores
-  location: { { INGEST_DATA_LOCATION } }
+#   format: "parquet" 
+  location: {{INGEST_DATA_LOCATION}}
+  format: {{INGEST_DATA_FORMAT|default('parquet')}}
+  
   # Beyond `parquet` datasets, the `spark_sql` and `delta` formats are also natively supported for
   # use with Spark
-  format: { { INGEST_DATA_FORMAT|default('parquet') } }
+#     
   # Datasets with other formats, including `csv`, can be used by implementing and
   # specifying a `custom_loader_method`
-  custom_loader_method: steps.ingest.load_file_as_dataframe
+#   custom_loader_method: steps.ingest.load_file_as_dataframe
   # If the `spark_sql` `format` is specified,
   # And if the table location format is path-like, use the following sql command for Spark to read
   # sub-columns from the table:
@@ -42,7 +45,7 @@ data:
 #
 # FIXME::REQUIRED: Specifies the target column name for model training and evaluation.
 #
-target_col: "y"
+target_col: "T"
 steps:
   split:
     #
@@ -87,11 +90,12 @@ steps:
     #
     # FIXME::OPTIONAL: Specify the output path of the scored data from predict.
     #
-    output_location: { { SCORED_OUTPUT_DATA_LOCATION } }
+    output_location: {{SCORED_OUTPUT_DATA_LOCATION}}
     #
     # FIXME::OPTIONAL: Specify the output format of the scored data from predict
     #
-    output_format: { { SCORED_OUTPUT_DATA_FORMAT|default('parquet') } }
+    output_format: {{SCORED_OUTPUT_DATA_FORMAT|default('parquet')}}
+
 metrics:
   #
   # FIXME::REQUIRED: Sets the primary metric to use to evaluate model performance. This primary
@@ -100,7 +104,7 @@ metrics:
   #                  Built-in metrics are: example_count, mean_absolute_error, mean_squared_error,
   #                  root_mean_squared_error, sum_on_label, mean_on_label, r2_score, max_error,
   #                  mean_absolute_percentage_error
-  primary: ""
+  primary: "mean_absolute_error"
   #
   # FIXME::OPTIONAL: Defines custom performance metrics to compute during model development.
   #
@@ -108,3 +112,7 @@ metrics:
   #   - name: ""
   #     function: get_custom_metrics
   #     greater_is_better: False
+
+data_scoring:
+  location: {{INGEST_SCORING_DATA_LOCATION}}
+  format: {{INGEST_SCORING_DATA_FORMAT|default('parquet')}}
