@@ -21,10 +21,10 @@ data:
   # Dataset locations on the local filesystem are supported, as well as HTTP(S) URLs and
   # any other remote locations resolvable by MLflow, such as those listed in
   # https://mlflow.org/docs/latest/tracking.html#artifact-stores
-  location: {{INGEST_DATA_LOCATION}}
+  location: { { INGEST_DATA_LOCATION } }
   # Beyond `parquet` datasets, the `spark_sql` and `delta` formats are also natively supported for
   # use with Spark
-  format: {{INGEST_DATA_FORMAT|default('parquet')}}
+  format: { { INGEST_DATA_FORMAT|default('parquet') } }
   # Datasets with other formats, including `csv`, can be used by implementing and
   # specifying a `custom_loader_method`
   custom_loader_method: steps.ingest.load_file_as_dataframe
@@ -42,7 +42,7 @@ data:
 #
 # FIXME::REQUIRED: Specifies the target column name for model training and evaluation.
 #
-target_col: ""
+target_col: "y"
 steps:
   split:
     #
@@ -67,15 +67,15 @@ steps:
     # FIXME::OPTIONAL: Sets performance thresholds that a trained model must meet in order to be
     #                  eligible for registration to the MLflow Model Registry.
     #
-    # validation_criteria:
-    #   - metric: root_mean_squared_error
-    #     threshold: 10
+    validation_criteria:
+      - metric: root_mean_squared_error
+        threshold: 10
   register:
     #
     # FIXME::REQUIRED: Specifies the name of the Registered Model to use when registering a trained
     #                  model to the MLflow Model Registry.
     #
-    model_name: ""
+    model_name: "test"
     # Indicates whether or not a model that fails to meet performance thresholds should still
     # be registered to the MLflow Model Registry
     allow_non_validated_model: false
@@ -87,11 +87,11 @@ steps:
     #
     # FIXME::OPTIONAL: Specify the output path of the scored data from predict.
     #
-    # output_location: {{SCORED_OUTPUT_DATA_LOCATION}}
+    output_location: { { SCORED_OUTPUT_DATA_LOCATION } }
     #
     # FIXME::OPTIONAL: Specify the output format of the scored data from predict
     #
-    # output_format: {{SCORED_OUTPUT_DATA_FORMAT|default('parquet')}}
+    output_format: { { SCORED_OUTPUT_DATA_FORMAT|default('parquet') } }
 metrics:
   #
   # FIXME::REQUIRED: Sets the primary metric to use to evaluate model performance. This primary
@@ -108,4 +108,3 @@ metrics:
   #   - name: ""
   #     function: get_custom_metrics
   #     greater_is_better: False
-
