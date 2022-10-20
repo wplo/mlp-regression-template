@@ -2,6 +2,7 @@ template: "regression/v1"
 data:
   location: {{INGEST_DATA_LOCATION}}
   format: {{INGEST_DATA_FORMAT|default('parquet')}}
+  custom_loader_method: steps.ingest.load_file_as_dataframe
 target_col: "T"
 steps:
   split:

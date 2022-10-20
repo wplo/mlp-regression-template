@@ -4,10 +4,10 @@ This module defines the following routines used by the 'ingest' step of the regr
 - ``load_file_as_dataframe``: Defines customizable logic for parsing dataset formats that are not
   natively parsed by MLflow Pipelines (i.e. formats other than Parquet, Delta, and Spark SQL).
 """
-from pandas import DataFrame
+import pandas as pd 
 
 
-def load_file_as_dataframe(file_path: str, file_format: str) -> DataFrame:
+def load_file_as_dataframe(file_path: str, file_format: str) -> pd.DataFrame:
     """
     Load content from the specified dataset file as a Pandas DataFrame.
 
@@ -21,5 +21,7 @@ def load_file_as_dataframe(file_path: str, file_format: str) -> DataFrame:
     :return: A Pandas DataFrame representing the content of the specified file.
     """
     # FIXME::OPTIONAL: implement the handling of non-natively supported file_format.
-
-    raise NotImplementedError
+    df = pd.read_csv(file_path)
+    print(pd.__version__)
+    return df
+    # raise NotImplementedError
