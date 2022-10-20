@@ -12,7 +12,7 @@ model_registry:
   uri: "sqlite:///metadata/mlflow/registry.db"
 #
 # FIXME::REQUIRED: Specify the training and evaluation data location.
-INGEST_DATA_LOCATION: "/work/data_location/AirQualityUCI_ready.csv"
+INGEST_DATA_LOCATION: "/work/mlp-regression-template/data_location/AirQualityUCI_ready.csv"
 #
 # FIXME::OPTIONAL: Specify the format of the training and evaluation dataset. Natively supported
 #                  formats are: parquet, spark_sql, delta.
